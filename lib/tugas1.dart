@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_1/cobaapi.dart';
+import 'package:flutter_application_1/Sqflite_order.dart';
 import 'package:flutter_application_1/keranjang.dart';
 import 'package:flutter_application_1/kontak.dart';
-
+import 'package:flutter_application_1/models/petani.dart';
 import 'package:flutter_application_1/riwayat.dart';
+import 'package:flutter_application_1/routes/list_petani_page.dart';
 import 'package:flutter_application_1/sample.dart';
 import 'package:flutter_application_1/sample2.dart';
 import 'package:flutter_application_1/profil.dart';
+import 'package:flutter_application_1/services/apiStatic.dart';
+
 
 
 class LaptopProduct {
@@ -25,7 +28,13 @@ class LaptopProduct {
   });
 }
 
+// ignore: must_be_immutable
 class Tugas1 extends StatelessWidget {
+  final List<String> people = ['Jojo', 'Todo', 'Desri'];
+  late final Future<List<Petani>> futurePetani;
+  final ApiStatic apiService = ApiStatic();
+
+
   final List<LaptopProduct> laptopProducts = [
     LaptopProduct(
       modelName: 'Model Laptop 1',
@@ -116,6 +125,8 @@ class Tugas1 extends StatelessWidget {
     ),
   ];
 
+  Tugas1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -199,11 +210,23 @@ ListTile(
   onTap: () {// Navigasi ke halaman KeranjangPage
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MyHome()),
+                MaterialPageRoute(builder: (context) => SqfliteOrder()),
               );
           },// Aksi ketika menu Pengaturan diklik
-  
 ),
+
+
+
+ListTile(
+  title: Text('Test JSON'),
+  onTap: () {// Navigasi ke halaman KeranjangPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DatasScreen(futurePetani: futurePetani,)),
+              );
+          },// Aksi ketika menu Pengaturan diklik
+),
+
 Divider(),
 ListTile(
   title: Text('Profilmu'),
